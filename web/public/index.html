@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Allocator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+  }
+</style>
+</head>
+<body>
+
+  <div class="app" id="app">
+
+    <header class="header">
+      <div class="logo">Delivery<span>Allocator</span></div>
+      <div class="hbtns">
+        <button class="btn" id="reset-btn">Reset</button>
+        <button class="btn" id="export-btn">Export JSON</button>
+        <button class="toggle-btn" id="theme-btn"></button>
+      </div>
+    </header>
+
+    <div class="stats">
+      <div class="sc"><div class="sc-label">Total Orders</div><div class="sc-val blue" id="stat-total">0</div></div>
+      <div class="sc"><div class="sc-label">Assigned</div><div class="sc-val green" id="stat-assigned">0</div></div>
+      <div class="sc"><div class="sc-label">Unassigned</div><div class="sc-val red" id="stat-unassigned">0</div></div>
+      <div class="sc"><div class="sc-label">Total Slots</div><div class="sc-val warn" id="stat-slots">0</div></div>
+    </div>
+
+    <div class="grid">
+      <div class="panel">
+        <div class="ph">Input Config</div>
+        <textarea id="json-input" spellcheck="false">{
+  "slots": [
+    { "slotId": "S1", "time": "9-11", "capacity": 2 },
+    { "slotId": "S2", "time": "11-1", "capacity": 1 }
+  ],
+  "orders": [
+    { "orderId": "O1", "preferredSlotId": "S2", "priority": "Low" },
+    { "orderId": "O2", "preferredSlotId": "S1", "priority": "High" },
+    { "orderId": "O3", "preferredSlotId": "S1", "priority": "Medium" },
+    { "orderId": "O4", "preferredSlotId": "S3", "priority": "High" },
+    { "orderId": "O5", "preferredSlotId": "S2", "priority": "High" }
+  ]
+}</textarea>
+        <div class="pf">
+          <button class="run-btn" id="allocate-btn">Run Algorithm</button>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <div class="panel">
+          <div class="ph">Slot Capacities</div>
+          <div class="slots-grid" id="slots-container">
+            <div class="empty-msg">Awaiting execution...</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="ph">Allocation Ledger</div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Slot</th>
+                </tr>
+              </thead>
+              <tbody id="results-body">
+                <tr><td colspan="4" class="empty-msg">Press Run Algorithm to start.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast hidden">
+    <span id="toast-msg"></span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
